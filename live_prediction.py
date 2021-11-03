@@ -5,8 +5,8 @@ from fastai.vision.all import *
 
 if __name__ == "__main__":
   
-  data_dir = Path("dk_bugs")
-  learn_inf = load_learner(data_dir/'export.pkl')
+  weights_dir = Path("models")/"resnet34-fin-ept-dk.export"
+  learn_inf = load_learner(weights_dir)
 
   cap = cv2.VideoCapture('/dev/video0')
 

@@ -1,4 +1,8 @@
 papers/
 .Rhistory
 finland_bugs/
+dk_bugs/
+ept_bugs/
+ept_bugs_preproc/
+.ipynb_checkpoints/
 
