@@ -31,8 +31,14 @@ def main():
 
     model_path = "models/effnet_b0.onnx"
     model = cv2.dnn.readNetFromONNX(model_path)
-    model_vocab = np.load("models/dk_vocab.npy")
     
+    model_vocab = []
+    
+    with open("models/dk_vocab.txt", 'r') as f:
+        for i in f:
+            x = i[:-1]
+            model_vocab.append(x)
+        
     cap = cv2.VideoCapture(0)
 
     recording = False
