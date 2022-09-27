@@ -19,7 +19,7 @@ def main():
               [sg.Text('Click start to begin', font='Helvetica 16', key="image_text")],
               [sg.Image(filename='', key='image')],
               [sg.Button('Start', size=(10, 1), font='Helvetica 12'),
-               sg.Button('Stop', size=(10, 1), font='Any 12'),
+               sg.Button('Stop', size=(10, 1), font='Helvetica 12'),
                sg.Button('Save', size=(10, 1), font='Helvetica 12'),
                sg.Button('Exit', size=(10, 1), font='Helvetica 12')],
               [sg.Table(values=save_list, headings=["Art", "Antal"], 
@@ -27,7 +27,7 @@ def main():
                         def_col_width=20, justification="left")],
               [sg.Text('', key="result_text")]]
 
-    window = sg.Window('BugID Live DEMO', layout, location=(800, 400))
+    window = sg.Window('BugID Live DEMO', layout, location=(600, 400))
 
     model_path = "models/effnet_b0.onnx"
     model = cv2.dnn.readNetFromONNX(model_path)
@@ -47,7 +47,7 @@ def main():
 
         elif event == 'Stop':
             recording = False
-            img = np.full((480, 640), 255)
+            img = np.full((224, 224), 255)
 
             imgbytes = cv2.imencode('.png', img)[1].tobytes()
             window['image'].update(data=imgbytes)
@@ -81,7 +81,9 @@ def main():
                 window["table"].update(values=save_list_table)
                 window["result_text"].update('Antal arter: {} \nAntal individer: {}'.format(len(save_list_count.keys()), sum(save_list_count.values())))
 
-            imgbytes = cv2.imencode('.png', frame)[1].tobytes()
+            frame_mode_input = cv2.cvtColor((np.moveaxis(model_input.squeeze(0), 0, -1)*255).astype(np.uint8), cv2.COLOR_RGB2BGR)
+
+            imgbytes = cv2.imencode('.png', frame_mode_input)[1].tobytes()
             window['image'].update(data=imgbytes)
 
 main()
