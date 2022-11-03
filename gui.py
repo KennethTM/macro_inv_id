@@ -7,7 +7,15 @@ from collections import Counter
 #https://github.com/PySimpleGUI/PySimpleGUI
 #https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_OpenCV_Webcam.py
 
-#Band order when converting between opencv/np and fastai is important
+def read_vocab(path):
+    model_vocab = []
+
+    with open(path, 'r') as f:
+        for i in f:
+            x = i[:-1]
+            model_vocab.append(x)
+
+    return(model_vocab)
 
 def main():
 
@@ -29,16 +37,13 @@ def main():
 
     window = sg.Window('BugID Live DEMO', layout, location=(600, 400))
 
-    model_path = "models/effnet_b0.onnx"
+    model_path = "models/effnet_b3.onnx"
     model = cv2.dnn.readNetFromONNX(model_path)
+    model_vocab = read_vocab("models/dk_vocab.txt")
+
+    scale = 1/255
+    images_size = 300
     
-    model_vocab = []
-    
-    with open("models/dk_vocab.txt", 'r') as f:
-        for i in f:
-            x = i[:-1]
-            model_vocab.append(x)
-        
     cap = cv2.VideoCapture(0)
 
     recording = False
@@ -53,10 +58,10 @@ def main():
 
         elif event == 'Stop':
             recording = False
-            img = np.full((224, 224), 255)
+            white_screen = np.full((images_size, images_size), 255)
 
-            imgbytes = cv2.imencode('.png', img)[1].tobytes()
-            window['image'].update(data=imgbytes)
+            white_screen_bytes = cv2.imencode('.png', white_screen)[1].tobytes()
+            window['image'].update(data=white_screen_bytes)
             window["image_text"].update('Click start to begin')
             save_list = []
             window["table"].update(values=save_list)
@@ -67,17 +72,17 @@ def main():
 
             model_input = cv2.dnn.blobFromImage(
                 image = frame,
-                scalefactor = 1.0/255.0,
-                size = (224, 224),
+                scalefactor = scale,
+                size = (images_size, images_size),
                 swapRB=True,
                 crop=True)
             
             model.setInput(model_input)
-            out = model.forward().squeeze()
-            idx_pred = np.argmax(out)
+            output = model.forward().squeeze()
+            idx_pred = np.argmax(output)
             class_pred = model_vocab[idx_pred]
             
-            label = f'Art: {class_pred} ({int(out[idx_pred]*100)}%)'
+            label = f'Art: {class_pred} ({int(output[idx_pred]*100)}%)'
             window["image_text"].update(label)
 
             if event == "Save":
@@ -87,9 +92,9 @@ def main():
                 window["table"].update(values=save_list_table)
                 window["result_text"].update('Antal arter: {} \nAntal individer: {}'.format(len(save_list_count.keys()), sum(save_list_count.values())))
 
-            frame_mode_input = cv2.cvtColor((np.moveaxis(model_input.squeeze(0), 0, -1)*255).astype(np.uint8), cv2.COLOR_RGB2BGR)
+            frame_output = cv2.cvtColor((np.transpose(model_input.squeeze(), (2, 1, 0))*255).astype(np.uint8), cv2.COLOR_RGB2BGR)
 
-            imgbytes = cv2.imencode('.png', frame_mode_input)[1].tobytes()
-            window['image'].update(data=imgbytes)
+            frame_output_bytes = cv2.imencode('.png', frame_output)[1].tobytes()
+            window['image'].update(data=frame_output_bytes)
 
 main()
