@@ -10,3 +10,9 @@ conda activate macro_inv_id
 pip install -r requirements_gui.txt
 python gui.py
 ```
+
+Compile using pyinstaller (tested on windows):
+
+```
+pyinstaller -i logo.ico --windowed --onefile --add-data "models;models" gui.py   
+```

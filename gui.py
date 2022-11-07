@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 import cv2
 import numpy as np
 from collections import Counter
+from os import path
 
 #https://github.com/PySimpleGUI/PySimpleGUI
 #https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_OpenCV_Webcam.py
@@ -23,7 +24,7 @@ def main():
 
     save_list = []
 
-    layout = [[sg.Text('LiveMakroID', size=(20, 1), font='Helvetica 22')],
+    layout = [[sg.Text('BugID', size=(20, 1), font='Helvetica 22')],
               [sg.Text('Click start to begin', font='Helvetica 16', key="image_text")],
               [sg.Image(filename='', key='image')],
               [sg.Button('Start', size=(10, 1), font='Helvetica 12'),
@@ -37,9 +38,10 @@ def main():
 
     window = sg.Window('BugID Live DEMO', layout, location=(600, 400))
 
-    model_path = "models/effnet_b3.onnx"
+    model_path = path.abspath(path.join(path.dirname(__file__), "models", "effnet_b0.onnx"))
     model = cv2.dnn.readNetFromONNX(model_path)
-    model_vocab = read_vocab("models/dk_vocab.txt")
+    vocab_path = path.abspath(path.join(path.dirname(__file__), "models", "dk_vocab.txt"))
+    model_vocab = read_vocab(vocab_path)
 
     scale = 1/255
     images_size = 300
@@ -92,7 +94,7 @@ def main():
                 window["table"].update(values=save_list_table)
                 window["result_text"].update('Antal arter: {} \nAntal individer: {}'.format(len(save_list_count.keys()), sum(save_list_count.values())))
 
-            frame_output = cv2.cvtColor((np.transpose(model_input.squeeze(), (2, 1, 0))*255).astype(np.uint8), cv2.COLOR_RGB2BGR)
+            frame_output = cv2.cvtColor((np.transpose(model_input.squeeze(), (1, 2, 0))*255).astype(np.uint8), cv2.COLOR_RGB2BGR) #image flipped on ubuntu vs windows?
 
             frame_output_bytes = cv2.imencode('.png', frame_output)[1].tobytes()
             window['image'].update(data=frame_output_bytes)
