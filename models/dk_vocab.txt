@@ -1,27 +1,25 @@
-Asellus aquaticus
-Baetis sp
-Beatis rhodani
-Chironominae
-Cirorixinae
-Elmis aenea
-Erpobdella octoculato
-Gammarus
-Gastropoda indet
-Hydropsyche sp
-Hydropsychidae
-Hyphydrus ovatus
-Lepidostomatidae
-Leuctra
-Limnius
-Lymnaea truncatula
-Nemoura sp
-Oligochaeta sp
-Pediciinae indet 2
-Planorbis planorbis
-Ptychoptera sp
-Sericostomatidea
-Sialis sp
-Simuliidae sp
-Sphaerium sp
-Tanypodinae sp
-ilyocoris cimicoides
+agapetus fuscipes
+ancylus fluviatilis
+asellus aquaticus
+baetis rhodani
+baetis sp
+cirorixinae
+elmis aenea adult
+ephemera danica
+ephemerella sp
+erpobdella octoculata
+gammarus pulex
+heptagenia flava
+heptagenia sulphurea
+hydropsyche sp
+leptophlebia marginata
+limnius volckmari adult
+nemoura sp
+oligochaeta sp
+ptychoptera sp
+sericostoma personatum
+sericostomatidea
+serratella ignita
+simuliidae sp
+sphaerium corneum
+sphaerium sp
