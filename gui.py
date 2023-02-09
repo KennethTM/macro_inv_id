@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 from collections import Counter
 from os import path
+import random 
 
 #https://github.com/PySimpleGUI/PySimpleGUI
 #https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_OpenCV_Webcam.py
@@ -18,6 +19,24 @@ def read_vocab(path):
 
     return(model_vocab)
 
+def update_table(window, spec_list):
+    spec_count = Counter(spec_list)
+    spec_table = [[k, v] for k, v in zip(spec_count.keys(), spec_count.values())]
+
+    dvfi_value = random.randint(1, 7)
+
+    window["table"].update(values=spec_table)
+    window["result_text"].update(f'Antal arter: {len(spec_count.keys())} \nAntal individer: {sum(spec_count.values())} \nDVFI score: {dvfi_value}')
+
+def white_screen(window, img_size):
+    white_screen = np.full((img_size, img_size), 255)
+    white_screen_bytes = cv2.imencode('.png', white_screen)[1].tobytes()
+    window['image'].update(data=white_screen_bytes)
+    window["image_text"].update('Click start to begin')
+    save_list = []
+    window["table"].update(values=save_list)
+    window["result_text"].update()
+
 def main():
 
     sg.theme('Black')
@@ -25,15 +44,16 @@ def main():
     save_list = []
 
     layout = [[sg.Text('BugID', size=(20, 1), font='Helvetica 22')],
+              [sg.Button('Start', size=(8, 1), font='Helvetica 12'),
+               sg.Button('Stop', size=(8, 1), font='Helvetica 12'),
+               sg.Button('Exit', size=(8, 1), font='Helvetica 12')],
               [sg.Text('Click start to begin', font='Helvetica 16', key="image_text")],
               [sg.Image(filename='', key='image')],
-              [sg.Button('Start', size=(10, 1), font='Helvetica 12'),
-               sg.Button('Stop', size=(10, 1), font='Helvetica 12'),
-               sg.Button('Save', size=(10, 1), font='Helvetica 12'),
-               sg.Button('Exit', size=(10, 1), font='Helvetica 12')],
               [sg.Table(values=save_list, headings=["Art", "Antal"], 
                         key="table", auto_size_columns=False, 
-                        def_col_width=20, justification="left")],
+                        col_widths=[20, 8], justification="left")],
+              [sg.Button('Save', size=(8, 1), font='Helvetica 12'),
+               sg.Button('Undo', size=(8, 1), font='Helvetica 12')],
               [sg.Text('', key="result_text")]]
 
     window = sg.Window('BugID Live DEMO', layout, location=(600, 400))
@@ -60,14 +80,7 @@ def main():
 
         elif event == 'Stop':
             recording = False
-            white_screen = np.full((images_size, images_size), 255)
-
-            white_screen_bytes = cv2.imencode('.png', white_screen)[1].tobytes()
-            window['image'].update(data=white_screen_bytes)
-            window["image_text"].update('Click start to begin')
-            save_list = []
-            window["table"].update(values=save_list)
-            window["result_text"].update()
+            white_screen(window, images_size)
 
         if recording:
             ret, frame = cap.read()
@@ -89,10 +102,12 @@ def main():
 
             if event == "Save":
                 save_list.append(class_pred)
-                save_list_count = Counter(save_list)
-                save_list_table = [[k, v] for k, v in zip(save_list_count.keys(), save_list_count.values())]
-                window["table"].update(values=save_list_table)
-                window["result_text"].update('Antal arter: {} \nAntal individer: {}'.format(len(save_list_count.keys()), sum(save_list_count.values())))
+                update_table(window, save_list)
+
+            if event == "Undo":
+                if save_list:
+                    save_list.pop()
+                    update_table(window, save_list)
 
             frame_output = cv2.cvtColor((np.transpose(model_input.squeeze(), (1, 2, 0))*255).astype(np.uint8), cv2.COLOR_RGB2BGR) #image flipped on ubuntu vs windows?
 
