@@ -32,7 +32,7 @@ def white_screen(window, img_size):
     white_screen = np.full((img_size, img_size), 255)
     white_screen_bytes = cv2.imencode('.png', white_screen)[1].tobytes()
     window['image'].update(data=white_screen_bytes)
-    window["image_text"].update('Click start to begin')
+    window["image_text"].update('Klik start!')
     window["table"].update(values=[])
     window["result_text"].update("")
 
@@ -45,10 +45,10 @@ def main():
     layout_left = [[sg.Button('Start', size=(8, 1), font='Helvetica 12'),
                sg.Button('Stop', size=(8, 1), font='Helvetica 12'),
                sg.Button('Exit', size=(8, 1), font='Helvetica 12')],
-              [sg.Text('Click start to begin', font='Helvetica 12', key="image_text")],
+              [sg.Text('Klik start!', font='Helvetica 12', key="image_text")],
               [sg.Image(filename='', key='image')],
-              [sg.Button('Save', size=(8, 1), font='Helvetica 12'),
-               sg.Button('Undo', size=(8, 1), font='Helvetica 12')],
+              [sg.Button('Gem', size=(8, 1), font='Helvetica 12'),
+               sg.Button('Fortryd', size=(8, 1), font='Helvetica 12')],
               ]
     
     layout_right = [[sg.Table(values=save_list, headings=["Art", "Antal"], 
@@ -56,11 +56,11 @@ def main():
                         col_widths=[20, 8])],
                     [sg.Text('', key="result_text")]]
     
-    layout = [[sg.Text('BugID DEMO', size=(20, 1), font='Helvetica 16')],
-              [sg.Frame("Live", layout_left, size=(300, 450)), 
+    layout = [[sg.Text('BugID', size=(20, 1), font='Helvetica 16')],
+              [sg.Frame("Stereolup", layout_left, size=(300, 450)), 
                sg.Frame("Data", layout_right, size = (300, 450))]]
 
-    window = sg.Window('BugID DEMO', layout)
+    window = sg.Window('BugID', layout)
 
     model_path = path.abspath(path.join(path.dirname(__file__), "models", "effnet_b0.onnx"))
     model = cv2.dnn.readNetFromONNX(model_path)
@@ -71,7 +71,11 @@ def main():
     scale = 1/255
     images_size = 300
     
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
+    #print(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    #print(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 
     recording = False
 
@@ -103,11 +107,11 @@ def main():
             idx_pred = np.argmax(output)
             class_pred = model_vocab[idx_pred]
             
-            if event == "Save":
+            if event == "Gem":
                 save_list.append(class_pred)
                 update_table(window, save_list)
 
-            if event == "Undo":
+            if event == "Fortryd":
                 if save_list:
                     save_list.pop()
                     update_table(window, save_list)
@@ -116,8 +120,7 @@ def main():
             frame_output_bytes = cv2.imencode('.png', frame_output)[1].tobytes()
             window['image'].update(data=frame_output_bytes)
 
-            label = f'Art: {class_pred.capitalize().replace("sp", "sp.")} ({int(output[idx_pred]*100)}%)'
+            label = f'Art: {class_pred.replace("sp", "sp.")} ({int(output[idx_pred]*100)}%)'
             window["image_text"].update(label)
-
 
 main()
