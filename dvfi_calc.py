@@ -1,7 +1,8 @@
 import pickle
 from os import path
 
-dictionaries_path = path.abspath(path.join(path.dirname(__file__), "models", 'dictionaries.pickle'))
+dictionaries_path = path.abspath(path.join(path.dirname(__file__), "data", 'dictionaries.pickle'))
+#dictionaries_path = "data/dictionaries.pickle"
 
 with open(dictionaries_path, 'rb') as src:
     dictionaries = pickle.load(src)
