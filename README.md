@@ -6,7 +6,7 @@
 
 ### Installation and usage
 
-To use, download a '.zip' file or `git clone` the repository. Extract and open a command prompt in the directory. Create a virtual environment, e.g. using conda or pyenv, and install the dependencies required to run the GUI:
+To setup, download a '.zip' file or `git clone` the repository. Extract and open a command prompt in the directory. Create a virtual environment, e.g. using conda or pyenv, and install the dependencies required to run the GUI:
 
 ```
 #Create a conda environment (only nescessary the first time)
@@ -90,4 +90,4 @@ The data collected by us is available from Kaggle [URL TO COME]()
 
 ### About
 
-This project is the result of a collaboration between Kenneth Thorø Martinsen (University of Copenhagen, Copenhagen, Denmark) and Søren Thromshold Christensen (Copenhagen Business Academy, Hillerød, Denmark).
+This project is the result of a collaboration between Kenneth Thorø Martinsen (University of Copenhagen, Copenhagen, Denmark) and Søren Thromsholdt Christensen (Copenhagen Business Academy, Hillerød, Denmark).
