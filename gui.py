@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 from collections import Counter
 from os import path
-from dvfi_calc import DVFI
+from dvfi import DVFI
 
 def read_vocab(path):
 
@@ -15,6 +15,7 @@ def read_vocab(path):
     return(model_vocab)
 
 def update_table(window, spec_list):
+
     spec_count = Counter(spec_list)
     spec_table = [[k.capitalize().replace("sp", "sp."), v] for k, v in zip(spec_count.keys(), spec_count.values())]
 
@@ -25,6 +26,7 @@ def update_table(window, spec_list):
     window["result_text"].update(f'Antal arter: {len(spec_count.keys())} \nAntal individer: {sum(spec_count.values())} \nAntal diversitetsgrupper: {div_value} \nNøglegruppe: {key_value} \nDVFI score: {dvfi_value}')
 
 def white_screen(window, img_size):
+
     white_screen = np.full((img_size, img_size), 255)
     white_screen_bytes = cv2.imencode('.png', white_screen)[1].tobytes()
     window['image'].update(data=white_screen_bytes)
@@ -123,12 +125,10 @@ def main(model_name, device, cap_width, cap_height):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Run BugID GUI for species identification using a webcam")
-    parser.add_argument("model_name", type=str, help="Name of model in 'models' directory to use")
-    parser.add_argument("-device", type=int, default=0, help="Camera device index, e.g. try 0, 1 or 2")
-    parser.add_argument("-cap_width", type=int, default=1920, help="Camera input width - resolution should be supported by the camera")
-    parser.add_argument("-cap_height", type=int, default=1080, help="Camera input height - resolution should be supported by the camera")
+    parser.add_argument("-model_name", type=str, default="mobilenetv2_050.onnx", help="Name of ONNX model in 'models' directory to use. Default: 'mobilenetv2_050.onnx'")
+    parser.add_argument("-device", type=int, default=0, help="Camera device index, e.g. try 0, 1 or 2. Default: 0")
+    parser.add_argument("-cap_width", type=int, default=1920, help="Camera input width - resolution should be supported by the camera. Default: 1920")
+    parser.add_argument("-cap_height", type=int, default=1080, help="Camera input height - resolution should be supported by the camera. Default: 1080")
     arguments = parser.parse_args()
 
     main(arguments.model_name, arguments.device, arguments.cap_width, arguments.cap_height)
-
-    #python gui.py resnet18.onnx

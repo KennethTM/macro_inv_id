@@ -1,9 +1,10 @@
 import pickle
 from os import path
 
+#Data and function for determining DVFI score from species list
 dictionaries_path = path.abspath(path.join(path.dirname(__file__), "data", 'dictionaries.pickle'))
-#dictionaries_path = "data/dictionaries.pickle"
 
+#Load dictionaries
 with open(dictionaries_path, 'rb') as src:
     dictionaries = pickle.load(src)
 
@@ -22,7 +23,7 @@ listOfTrichoptera = dictionaries.get("listOfTrichoptera")
 
 def calcDiversityScore(sample):
     
-    # convert the list to distinct values
+    #Convert the list to distinct values
     distSample = list(set(sample))
     
     posGrpTaken = {}
@@ -34,7 +35,7 @@ def calcDiversityScore(sample):
     if sample.count('oligochaeta') >= 100:
         score -= 1
     
-    # run through the sample
+    #Run through the sample
     for s in distSample:
         
         posFamilyName = setOfPositiveGrp.get(s)
@@ -43,7 +44,7 @@ def calcDiversityScore(sample):
         negFamilyName = setOfNegativeGrp.get(s)
         print('NEG: we found ' + str(s) + ' in our sample and the family is ' + str(negFamilyName))
         
-        # if it exists in the positive family list
+        #If it exists in the positive family list
         if posFamilyName is not None:
             print('Found familyname from the positive list')
             
@@ -59,7 +60,7 @@ def calcDiversityScore(sample):
                 print('this has already been found!')
             print("\n\n")
         
-        # if it exists in the negative family list
+        #If it exists in the negative family list
         elif negFamilyName is not None:
             print('Found familyname from the negative list')
             
@@ -77,7 +78,7 @@ def calcDiversityScore(sample):
     
     return score
 
-#Nøglegruppe 1 færdig
+#Nøglegruppe 1
 def keygroup1(sample, score):
     
     fixedList = []
@@ -113,7 +114,7 @@ def keygroup1(sample, score):
         
     return 0
 
-#Nøglegruppe 2 færdig
+#Nøglegruppe 2
 def keygroup2(sample, score):
     
     if sample.count('asellus') >= 5 or sample.count('asellus aquaticus') >= 5:
@@ -140,7 +141,7 @@ def keygroup2(sample, score):
    
     return 0
 
-#Nøglegruppe 3 mangler trichoptera
+#Nøglegruppe 3
 def keygroup3(sample, score):
 
     if sample.count('chironomus') >= 5:
@@ -187,7 +188,7 @@ def keygroup3(sample, score):
    
     return 0
 
-#Nøglegruppe 4 manger trichoptera
+#Nøglegruppe 4
 def keygroup4(sample, score):
 
     enter = 0
@@ -241,7 +242,7 @@ def keygroup4(sample, score):
         
     return 0
 
-#Nøglegruppe 5 færdig
+#Nøglegruppe 5
 def keygroup5(sample, score):
 
     if sample.count('eristalis') >= 2:
@@ -291,7 +292,7 @@ def keygroup5(sample, score):
             return 0
     return 0
 
-#Nøglegruppe 6 færdig
+#Nøglegruppe 6
 def keygroup6(sample, score):
     keygroup6 = ['tubificidae', 'psychoidae', 'chironomidae', 'eristalis']  
     
@@ -311,7 +312,7 @@ def keygroup6(sample, score):
                 return 0
     return 0
 
-#Nøglegruppe 7 færdig
+#Nøglegruppe 7
 def keygroup7(score):
     if score <= -2:
         return 1
