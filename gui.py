@@ -52,7 +52,7 @@ def main(model_name, device, cap_width, cap_height):
     
     layout_right = [[sg.Table(values=save_list, headings=["Art", "Antal"], 
                         key="table", auto_size_columns=False, 
-                        col_widths=[25, 10])],
+                        col_widths=[20, 10])],
                     [sg.Text('', key="result_text")]]
     
     layout = [[sg.Text('BugID', size=(20, 1), font='Helvetica 16')],
