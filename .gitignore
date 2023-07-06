@@ -7,5 +7,6 @@ ept_bugs_preproc/
 .ipynb_checkpoints/
 dk_bugs_preproc/
 old/
-
+*.zip
 .Rproj.user
+models/*.pth

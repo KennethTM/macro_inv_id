@@ -88,7 +88,7 @@ pyinstaller -i logo.ico --windowed --onefile --add-data "models;models" --add-da
 
 The data used to train and validate the models have been collected, identified and processed by us (see About) and supplemented with images from the [Global Biodiversity Information Facility](https://www.gbif.org/composition/57twunvM3vrUotO12WDNgc/what-is-gbif).
 
-The data collected by us is available from Kaggle [URL TO COME]()
+The data collected by us is available from [Kaggle](https://www.kaggle.com/datasets/kennethtm/stream-macroinvertebrates).
 
 ### About
 
