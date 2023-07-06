@@ -4,6 +4,8 @@
 
 *BugID - a deep learning model embedded in a graphical user interface to identify macroinvertebrates from a videofeed e.g. microscope, webcam etc.*
 
+![](https://github.com/KennethTM/macro_inv_id/blob/main/screenshot.png)
+
 ### Installation and usage
 
 To setup, download a '.zip' file or `git clone` the repository. Extract and open a command prompt in the directory. Create a virtual environment, e.g. using conda or pyenv, and install the dependencies required to run the GUI:
@@ -76,7 +78,7 @@ Different resolutions of the input feed can be accommodated depending device/cam
 
 ### Compile as executable file
 
-Compile using pyinstaller (only tested on Windows):
+Compile using PyInstaller (only tested on Windows):
 
 ```
 pyinstaller -i logo.ico --windowed --onefile --add-data "models;models" --add-data "data;data" gui.py   
@@ -90,4 +92,4 @@ The data collected by us is available from Kaggle [URL TO COME]()
 
 ### About
 
-This project is the result of a collaboration between Kenneth Thorø Martinsen (University of Copenhagen, Copenhagen, Denmark) and Søren Thromsholdt Christensen (Copenhagen Business Academy, Hillerød, Denmark).
+This project is the result of a collaboration between Kenneth Thorø Martinsen (University of Copenhagen, Copenhagen, Denmark) and Søren Thromsholdt Christensen (Cphbusiness, Hillerød, Denmark).
