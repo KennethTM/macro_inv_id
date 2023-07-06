@@ -44,31 +44,31 @@ The models have been fine-tuned from pre-trained models using timm and fastai.
 
 25 taxa of macroinvertebrates found in Danish streams are recognised:
 
-* Ancylus sp
-* Asellus sp
-* Baetidae sp
-* Caenidae sp
-* Chironomus sp
-* Elmis sp
-* Ephemera sp
-* Ephemerellidae
-* Erpobdella sp
-* Gammarus sp
-* Glossosomatidae sp
-* Goeridae sp
-* Heptageniidae sp
-* Hydropsychidae sp
-* Leptophlebiidae sp
-* Leuctra sp
-* Limnius sp
-* Lymnea sp
-* Nemoura sp
-* Oligochaeta sp
-* Sericostomatidae sp
-* Sialis sp
-* Simuliidae sp
-* Siphlonuridae
-* Sphaerium sp
+* *Ancylus* sp.
+* *Asellus* sp.
+* *Baetidae* sp.
+* *Caenidae* sp.
+* *Chironomus* sp.
+* *Elmis* sp.
+* *Ephemera* sp.
+* *Ephemerellidae*
+* *Erpobdella* sp.
+* *Gammarus* sp.
+* *Glossosomatidae* sp.
+* *Goeridae* sp.
+* *Heptageniidae* sp.
+* *Hydropsychidae* sp.
+* *Leptophlebiidae* sp.
+* *Leuctra* sp.
+* *Limnius* sp.
+* *Lymnea* sp.
+* *Nemoura* sp.
+* *Oligochaeta* sp.
+* *Sericostomatidae* sp.
+* *Sialis* sp.
+* *Simuliidae* sp.
+* *Siphlonuridae*
+* *Sphaerium* sp.
 
 ### Camera
 
