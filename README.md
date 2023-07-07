@@ -69,7 +69,7 @@ Three models are included as ONNX files in the 'models' directory (listed by inc
 * resnet18.onnx
 * convnext_tiny.onnx
 
-The GUI can use all three models, try them out using the command line options.
+The GUI can use all three models, try them out using the command line options (`-model_name` option).
 
 The models have been fine-tuned from pre-trained models using timm and fastai. 
 
@@ -103,9 +103,9 @@ The models have been fine-tuned from pre-trained models using timm and fastai.
 
 ### Camera
 
-The input image feed for the GUI should be a webcam, camera from a microscope, etc. If the camera cannot be opened (e.g. OpenCV error or exception), try another device index using the command line options.
+The input image feed for the GUI should be a webcam, camera from a microscope, etc. If the camera cannot be opened (e.g. OpenCV error or exception), try another device index using the command line options (`-device` option).
 
-Different resolutions of the input feed can be accommodated depending device/camera.
+Different resolutions of the input feed can be accommodated depending device/camera  (`-cap_height` and `-cap_width` options).
 
 ## Data
 
