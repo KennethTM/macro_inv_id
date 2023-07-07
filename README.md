@@ -1,8 +1,8 @@
 # BugID
 
-![]https://github.com/KennethTM/macro_inv_id/blob/main/logo.png
-
 **Project acronym: macro_inv_id**
+
+![](https://github.com/KennethTM/macro_inv_id/blob/main/logo.png)
 
 *BugID - a deep learning model embedded in a graphical user interface to identify macroinvertebrates from a videofeed e.g. microscope, webcam etc.*
 
@@ -18,13 +18,13 @@ The provided 'BugID.exe' executable file in the 'dist' directory is a ready to r
 
 Download the file and run it to use the GUI with the default settings (model: mobilenetv2_050.onnx, device: 0, cap_width: 1920, cap_height: 1080). 
 
-To run the program using other than default options, the executable file can be run from the command line. Open the command prompt, navigate to the directory with the executable file and run:
+To run the program using other than default options, the executable file can be run from the command line. Open a command prompt, navigate to the directory with the executable file and run:
 
 ```
 ./BugID.exe -device 1
 ```
 
-This command uses another model and camera device, see further description of options below. 
+This command uses another camera device, see further description of options below. 
 
 Due to size limitations, the executable file only contains the smallest model (mobilenetv2_050.onnx). However, after downloading the 'macro_inv_id' project as a '.zip' file, the executable file can be compiled with other options by changing the included model (see below) or in the 'gui.py' script.
 
@@ -103,7 +103,7 @@ The models have been fine-tuned from pre-trained models using timm and fastai.
 
 ### Camera
 
-The input image feed for the GUI should be a webcam, camera from a microscope, etc. If the camera cannot be opened, try another device index using the command line options.
+The input image feed for the GUI should be a webcam, camera from a microscope, etc. If the camera cannot be opened (e.g. OpenCV error or exception), try another device index using the command line options.
 
 Different resolutions of the input feed can be accommodated depending device/camera.
 
