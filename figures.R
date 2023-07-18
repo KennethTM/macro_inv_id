@@ -12,7 +12,7 @@ images <- list.files("image_preproc", pattern=".png", full.names = TRUE, recursi
 
 images_df <- tibble(paths = images) |> 
   separate(paths, into = c("dir", "set", "species", "image"), sep="/") |> 
-  mutate(species = sub(" sp", " sp.", species),
+  mutate(species = sub(" sp", "", species),
          source = ifelse(grepl("GBIF", image, fixed = TRUE), "GBIF", "Egne data"))
 
 source_df <- images_df |> 
@@ -35,4 +35,5 @@ fig_data_dist <- source_df |>
         legend.position = c(0.7, 0.3),
         axis.text.y = element_text(face = "italic"))
 
-ggsave("figures/fig_data_dist.png", fig_data_dist, height = 100, width = 129, units = "mm")
+ggsave("figures/figure_3.png", fig_data_dist, height = 100, width = 129, units = "mm")
+ggsave("figures/figure_3.pdf", fig_data_dist, height = 100, width = 129, units = "mm")
