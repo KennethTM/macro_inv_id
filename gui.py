@@ -17,7 +17,7 @@ def read_vocab(path):
 def update_table(window, spec_list):
 
     spec_count = Counter(spec_list)
-    spec_table = [[k.capitalize().replace("sp", "sp."), v] for k, v in zip(spec_count.keys(), spec_count.values())]
+    spec_table = [[k.capitalize().replace("sp", ""), v] for k, v in zip(spec_count.keys(), spec_count.values())]
 
     spec_list_dvfi = [i.capitalize().replace(" sp", "") for i in spec_list]
     dvfi_value, key_value, div_value = DVFI(spec_list_dvfi)
@@ -119,7 +119,7 @@ def main(model_name, device, cap_width, cap_height):
             frame_output_bytes = cv2.imencode('.png', frame_output)[1].tobytes()
             window['image'].update(data=frame_output_bytes)
 
-            label = f'Art: {class_pred.replace("sp", "sp.")} ({int(output[idx_pred]*100)}%)'
+            label = f'Art: {class_pred.replace("sp", "")} ({int(output[idx_pred]*100)}%)'
             window["image_text"].update(label)
 
 if __name__ == "__main__":

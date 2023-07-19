@@ -71,41 +71,45 @@ Three models are included as ONNX files in the 'models' directory (listed by inc
 
 The GUI can use all three models, try them out using the command line options (`-model_name` option).
 
-The models have been fine-tuned from pre-trained models using timm and fastai. 
+The models have been fine-tuned from pre-trained models using the [timm](https://github.com/huggingface/pytorch-image-models) and [fastai](https://github.com/fastai/fastai) libraries. 
 
 25 taxa of macroinvertebrates found in Danish streams are recognised:
 
-* *Ancylus* sp.
-* *Asellus* sp.
-* *Baetidae* sp.
-* *Caenidae* sp.
-* *Chironomus* sp.
-* *Elmis* sp.
-* *Ephemera* sp.
+* *Ancylus*
+* *Asellus*
+* *Baetidae*
+* *Caenidae*
+* *Chironomus*
+* *Elmis*
+* *Ephemera*
 * *Ephemerellidae*
-* *Erpobdella* sp.
-* *Gammarus* sp.
-* *Glossosomatidae* sp.
-* *Goeridae* sp.
-* *Heptageniidae* sp.
-* *Hydropsychidae* sp.
-* *Leptophlebiidae* sp.
-* *Leuctra* sp.
-* *Limnius* sp.
-* *Lymnea* sp.
-* *Nemoura* sp.
-* *Oligochaeta* sp.
-* *Sericostomatidae* sp.
-* *Sialis* sp.
-* *Simuliidae* sp.
+* *Erpobdella* 
+* *Gammarus*
+* *Glossosomatidae*
+* *Goeridae*
+* *Heptageniidae*
+* *Hydropsychidae*
+* *Leptophlebiidae*
+* *Leuctra*
+* *Limnius*
+* *Lymnea*
+* *Nemoura*
+* *Oligochaeta*
+* *Sericostomatidae*
+* *Sialis*
+* *Simuliidae*
 * *Siphlonuridae*
-* *Sphaerium* sp.
+* *Sphaerium*
 
 ### Camera
 
 The input image feed for the GUI should be a webcam, camera from a microscope, etc. If the camera cannot be opened (e.g. OpenCV error or exception), try another device index using the command line options (`-device` option).
 
 Different resolutions of the input feed can be accommodated depending device/camera  (`-cap_height` and `-cap_width` options).
+
+## Danish stream fauna index (DVFI)
+
+In addition to indentification of the supported taxa, taxa names and counts can be saved and used to calculate the DVFI index. At the moment, the calculated index values may be wrong because some of the required taxa is missing in the model and thus not recognized. This functionality is under development. 
 
 ## Data
 
